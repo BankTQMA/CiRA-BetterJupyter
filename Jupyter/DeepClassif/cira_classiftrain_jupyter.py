@@ -10,12 +10,28 @@
 # !curl -sLf https://raw.githubusercontent.com/CiRA-AMI/cira-colab-trainer/main/boostrap.sh | bash && pip install ipywidgets ipyfilechooser
 
 # No Verbose
-import subprocess, time, os
-ret = subprocess.call(['bash', '-c', 'curl -sLf https://raw.githubusercontent.com/CiRA-AMI/cira-colab-trainer/main/boostrap.sh | bash && pip install ipywidgets ipyfilechooser xattr && rm -rf cira-colab-trainer*'])
-if ret != 0:
-    print("CiRA Colab Trainer install error...")
+import subprocess, time, os, getpass
+
+# Check if boostrap.sh exists
+if not (os.path.isfile("boostrap.sh")):
+    print("Script not existed, Downloading...")
+    os.system(["bash -c curl -sLf https://raw.githubusercontent.com/CiRA-AMI/cira-colab-trainer/main/boostrap.sh"])
 else:
-    print("CiRA Colab Trainer install complete")
+    try:
+        command = "sudo -S bash ./boostrap.sh" # -S is for reading the password from the standard input (stdin) instead of a terminal device.
+        os.system('echo %s | %s' %(getpass.getpass("Root Password (Run \"boostrap.sh\" shell script): "), command)) # Echo password to shell
+
+        del command
+
+        # Remove "cira-colab-trainer" folder with permission
+        os.system("pip install ipywidgets ipyfilechooser xattr")
+        command = "sudo -S rm -rf cira-colab-trainer*"
+        os.system('echo %s | %s' %(getpass.getpass("Root Password (Remove \"cira-colab-trainer\" folder with permission): "), command)) # Echo password to shell
+
+        del command
+        print("CiRA Colab Trainer install complete")
+    except:
+        print("CiRA Colab Trainer install error...")
 
 
 # In[31]:

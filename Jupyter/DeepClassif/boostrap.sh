@@ -1,15 +1,15 @@
-if [ -d "cira-colab-trainer-main" ] 
-then
-    rm -rf cira-colab-trainer-main 
-fi
+# if [ -d "cira-colab-trainer-main" ] 
+# then
+#     rm -rf cira-colab-trainer-main 
+# fi
 
-if [[ -f "cira-colab-trainer-main.zip" ]]
-then
-    rm -rf cira-colab-trainer-main.zip
-fi
+# if [[ -f "cira-colab-trainer-main.zip" ]]
+# then
+#     rm -rf cira-colab-trainer-main.zip
+# fi
 
-wget -O cira-colab-trainer-main.zip https://github.com/CiRA-AMI/cira-colab-trainer/archive/refs/heads/main.zip
-unzip -qq cira-colab-trainer-main.zip
+# wget -O cira-colab-trainer-main.zip https://github.com/CiRA-AMI/cira-colab-trainer/archive/refs/heads/main.zip
+# unzip -qq cira-colab-trainer-main.zip
 
 cd cira-colab-trainer-main
 unzip -qq install.zip && cp -r install /root 
